@@ -2,6 +2,7 @@
   import svelteLogo from './assets/svelte.svg'
   import viteLogo from '/vite.svg'
   import Counter from './lib/Counter.svelte'
+  let num = $state(0)
 </script>
 
 <main>
@@ -16,7 +17,7 @@
   <h1>Vite + Svelte</h1>
 
   <div class="card">
-    <Counter />
+    <Counter name="M" age="13"  onclick={() => console.log(num++)}/>
   </div>
 
   <p>

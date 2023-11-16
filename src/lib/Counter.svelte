@@ -1,10 +1,16 @@
 <script>
-  let count = 0
-  const increment = () => {
-    count += 1
+  let {name, age, ...rest} = $props()
+  let count = $state(0)
+  let doubled = $derived(count * 2)
+  const onclick = () => {
+    const prev = count
+    count++
+    console.log(`${prev} + 1 = ${count}`)
   }
 </script>
-
-<button on:click={increment}>
-  count is {count}
+{count}
+<h3>Hello, {name}</h3>
+<p>Age: {age}</p>
+<button {onclick}>
+  count is {count}; double is {doubled}
 </button>
