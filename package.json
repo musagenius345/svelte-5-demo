@@ -10,7 +10,10 @@
   },
   "devDependencies": {
     "@sveltejs/vite-plugin-svelte": "2.5.2",
-    "svelte": "5.0.0-next.4",
+    "colorjs.io": "^0.4.5",
+    "eruda": "^3.0.1",
+    "poline": "^0.7.0",
+    "svelte": "5.0.0-next.8",
     "vite": "^4.5.0"
   }
 }
