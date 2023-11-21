@@ -1,16 +1,16 @@
 <script>
-  let {name, age, ...rest} = $props()
-  let count = $state(0)
-  let doubled = $derived(count * 2)
-  const onclick = () => {
-    const prev = count
-    count++
-    console.log(`${prev} + 1 = ${count}`)
-  }
+  import { counter } from '$store/store.svelte'
+  let {children, onclick, ...rest} = $props()
+  console.log(rest)
 </script>
-{count}
-<h3>Hello, {name}</h3>
-<p>Age: {age}</p>
-<button {onclick}>
-  count is {count}; double is {doubled}
+<button id={crypto.randomUUID()} onclick={counter.increment}>
+  Increment
+</button>
+
+<button id={crypto.randomUUID()} onclick={counter.decrement}>
+  Decrement
+</button>
+
+<button id={crypto.randomUUID()} onclick={counter.reset}>
+  Reset
 </button>
