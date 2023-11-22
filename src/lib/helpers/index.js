@@ -8,6 +8,38 @@ function getRandomIntInclusive(min, max) {
 }
 
 
+
+/**
+ * Fetches data from the provided API.
+ * @param {string} api - The API endpoint to fetch data from.
+ * @returns {Promise<object>} - A promise that resolves to the fetched data.
+ * @throws {Error} - Throws an error if the response status is not 200.
+ */
+export const fetchData = async (api) => {
+  const response = await fetch(api);
+  const body = await response.json();
+
+  if (response.status !== 200) {
+    throw Error(`Error: ${body.message}`);
+  }
+
+  return body;
+};
+
+/**
+ * Updates the path using throttled function to avoid frequent updates.
+ * @param {number[]} bg - Background color values in HSL format.
+ * @param {number[]} fg - Foreground color values in HSL format.
+ */
+export const updatePath = throttle((bg, fg) => {
+  const backgroundHex = hslToHex(bg).replace(/^#/, '');
+  const foregroundHex = hslToHex(fg).replace(/^#/, '');
+
+  if (history !== undefined) {
+    history.push(`/${backgroundHex}/${foregroundHex}`);
+  }
+}, 250);
+
 /**
  * Checks if the given HSL color is considered dark.
  * @param {number[]} hsl - An array representing the HSL color values.
@@ -105,10 +137,63 @@ export function getWCAG21Contrast(a, b){
    const color1 = new Color('sRGB', a)
    // @ts-ignore
    const color2 = new Color('sRGB', b)
-   return color1.contrast(color2, "WCAG21")
+   let contrast = color1.contrast(color2, "WCAG21")
+  return contrast > 21 ? 21 : roundNum(contrast, 2);
+  
    
 }
 
-const result = getWCAG21Contrast([255, 255, 255], [0,0, 0])
+/**
+ * Round up number to a given decimal place
+  * @param {number} fractionalNumber 
+  * @param {number} numberOfDecimalPlaces 
+  */
+function roundNum(fractionalNumber, numberOfDecimalPlaces){
+  const numberToRound = fractionalNumber * (10**numberOfDecimalPlaces);
+  let roundedNumber = Math.round(numberToRound);
+  return  roundedNumber / (10**numberOfDecimalPlaces);
+}
+
+
+/**
+ * Converts a hexadecimal color code to RGB format.
+ * @param {string} hex - The hexadecimal color code.
+ * @returns {number[]|null} - An array representing the RGB color values or null if input is not a valid hexadecimal color.
+ */
+export function hexToRgb(hex){
+  return isHex(hex) ? new Color(hex).to('sRGB').coords.map( el => el * 255) : null
+}
+
+
+
+/**
+ * Converts RGB color values to a hexadecimal color code.
+ * @param {number[]} rgb - An array representing the RGB color values.
+ * @returns {string} - The hexadecimal color code.
+ */
+export const rgbToHex = (rgb) => {
+ return !isRgb(rgb)
+  ? '#808080'
+  :  new Color(`rgb(${rgb[0]} ${rgb[1]} ${rgb[2]})`).toString({format: 'hex', collapse: false})
+ 
+}
+
+
+/**
+ * Converts HSL color values to a hexadecimal color code.
+ * @param {number[]} hsl - An array representing the HSL color values.
+ * @returns {string} - The hexadecimal color code.
+ */
+export const hslToHex = (hsl) => {
+   if(!(isHsl(hsl))){
+    return '#808080'
+  }
+    return new Color('hsl', hsl).to('srgb').toString({format: 'hex', collapse: false}) 
+}
+
+// const result = getWCAG21Contrast([255, 255, 255], [0,0, 0])
+const magenta = [290, 80, -2]
+const result = hslToHex(magenta)
+
 
 console.log(result)

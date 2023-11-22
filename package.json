@@ -9,11 +9,19 @@
     "preview": "vite preview"
   },
   "devDependencies": {
+    "@svelte-put/copy": "^3.0.0",
     "@sveltejs/vite-plugin-svelte": "2.5.2",
     "colorjs.io": "^0.4.5",
     "eruda": "^3.0.1",
+    "history": "^5.3.0",
+    "lodash.debounce": "^4.0.8",
+    "lodash.round": "^4.0.4",
+    "lodash.throttle": "^4.1.1",
     "poline": "^0.7.0",
-    "svelte": "5.0.0-next.8",
+    "svelte": "5.0.0-next.9",
     "vite": "^4.5.0"
+  },
+  "dependencies": {
+    "vitest": "^0.34.6"
   }
 }
