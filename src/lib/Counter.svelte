@@ -1,8 +1,9 @@
 <script>
   import { counter } from '$store/store.svelte'
   let {children, onclick, ...rest} = $props()
-  console.log(rest)
+  
 </script>
+{JSON.stringify(rest)}
 <button id={crypto.randomUUID()} onclick={counter.increment}>
   Increment
 </button>

@@ -1,41 +1,37 @@
 <script>
-  import svelteLogo from './assets/svelte.svg'
-  import viteLogo from '/vite.svg'
-  import Counter from './lib/Counter.svelte'
+  const text = 'Hello World'
+
   import { counter } from '$store/store.svelte'
-  import { copy } from '@svelte-put/copy'
-  let trigger
-  let copied = ''
-  function handleCopied(e) {
-    copied = e.detail.text
-    alert(copied)
-  }
-
+  import Button from '$atom/Button.svelte'
+  import Copy from '$atom/Copy.svelte'
+  import Badge from '$atom/Badge.svelte'
+  import Divider from '$atom/Divider.svelte'
+  import Grade from '$atom/Grade.svelte'
+  import Heading from '$atom/Heading.svelte'
+  import Icon from '$atom/Icon.svelte'
 </script>
-
-<main>
-  <!--{JSON.stringify(new Event())}-->
-<p>{counter.count}</p>
-  
-  <Counter />
-  <button type="button" bind:this={trigger}>Copy text below</button>
-  <p use:copy={{trigger}} on:copied={handleCopied}>Hello New World</p>
-</main>
-
+<div class=''>
+<Button onclick={counter.increment}>{counter.count}</Button>
+<Copy large row='5'/>
+<Badge color='red'>Badge</Badge>
+<Divider color='red'/>
+  <Grade color='blue'>Grade</Grade>
+  <Heading level='1'>Heading 1</Heading>
+  <Heading level='2'>Heading 2</Heading>
+  <Heading level='3'>Heading 3</Heading>
+  <Heading level='4'>Heading 4</Heading>
+  <Heading level='5'>Heading 5</Heading>
+  <Heading level='6'>Heading 6</Heading>
+  <Heading level='7'>Heading span </Heading>
+  <Icon github />
+  <Icon clipboard />
+  <Icon twitter />
+  <Icon cross />
+  <Icon tick/>
+  <Icon  chevron/>
+</div>
 <style>
-  .logo {
-    height: 6em;
-    padding: 1.5em;
-    will-change: filter;
-    transition: filter 300ms;
-  }
-  .logo:hover {
-    filter: drop-shadow(0 0 2em #646cffaa);
-  }
-  .logo.svelte:hover {
-    filter: drop-shadow(0 0 2em #ff3e00aa);
-  }
-  .read-the-docs {
-    color: #888;
-  }
+ :global(:selection){
+   color: #222;
+ }
 </style>
