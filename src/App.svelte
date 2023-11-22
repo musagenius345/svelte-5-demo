@@ -3,13 +3,23 @@
   import viteLogo from '/vite.svg'
   import Counter from './lib/Counter.svelte'
   import { counter } from '$store/store.svelte'
+  import { copy } from '@svelte-put/copy'
+  let trigger
+  let copied = ''
+  function handleCopied(e) {
+    copied = e.detail.text
+    alert(copied)
+  }
+
 </script>
 
 <main>
-  {JSON.stringify(counter)}
+  <!--{JSON.stringify(new Event())}-->
 <p>{counter.count}</p>
   
   <Counter />
+  <button type="button" bind:this={trigger}>Copy text below</button>
+  <p use:copy={{trigger}} on:copied={handleCopied}>Hello New World</p>
 </main>
 
 <style>
